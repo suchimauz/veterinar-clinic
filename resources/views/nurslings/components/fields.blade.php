@@ -6,7 +6,7 @@
 </div>
 <div class="form-group">
     <label>Адрес</label>
-    <input class="form-control" placeholder="Введите ФИО владельца" name="address" required autofocus @if(isset($nursling)) value="{{ $nursling->address }}" @endif>
+    <input class="form-control" placeholder="Введите адрес" name="address" required autofocus @if(isset($nursling)) value="{{ $nursling->address }}" @endif>
 </div>
 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 <hr>
