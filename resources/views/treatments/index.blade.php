@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button class="btn btn-primary" type="submit">Отправить</button>
+                            <button class="btn btn-primary" type="submit">Искать</button>
                         </div>
                     </form>
                 </div>
@@ -66,6 +66,7 @@
                                     <p class="mb-1">{{ $treatment->complaint }}</p>
                                     <small class="text-muted"><b>Порода / Окрас: </b>{{ $treatment->nurslings_breed }} </small>
                                     <br><small class="text-muted"><b>Владелец: </b>{{ $treatment->nurslings_owner_name }} </small>
+                                    <br><small class="text-muted"><b>Номер телефона: </b>{{ $treatment->nurslings_phone }} </small>
                                     <br><small class="text-muted"><b>Адрес: </b>{{ $treatment->nurslings_address }} </small>
                                 </div>
                             </a>

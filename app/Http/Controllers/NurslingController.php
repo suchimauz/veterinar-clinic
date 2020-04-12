@@ -18,14 +18,14 @@ class NurslingController extends Controller
     {
         $nurslings = DB::table('nurslings')
                         ->join('categories', 'categories.id', '=', 'nurslings.category_id')
-                        ->select('nurslings.id', 'nurslings.breed', 'nurslings.address', 'nurslings.nickname', 'nurslings.owner_name', 'categories.name as category_name', 'categories.id as category_id');
+                        ->select('nurslings.id', 'nurslings.breed', 'nurslings.address', 'nurslings.nickname', 'nurslings.phone', 'nurslings.owner_name', 'categories.name as category_name', 'categories.id as category_id');
         if($request->get('category_id')){
             $nurslings = $nurslings->where('category_id', $request->get('category_id'));
         }
         if($request->get('search')) {
             $literals = explode(" ", $request->get('search'));
             foreach($literals as $literal) {
-                $nurslings = $nurslings->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.address, nurslings.nickname, categories.name)'), 'like', '%' . $literal . '%');
+                $nurslings = $nurslings->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.phone, nurslings.address, nurslings.nickname, categories.name)'), 'like', '%' . $literal . '%');
             }
         }
         return view('nurslings.index', ['nurslings' => $nurslings->get(), 'categories' => Category::get()]);
@@ -55,6 +55,7 @@ class NurslingController extends Controller
                 'nickname'  => $request->nickname,
                 'address'  => $request->address,
                 'breed'  => $request->breed,
+                'phone'  => $request->phone,
                 'user_id'     => $request->user_id,
                 'category_id' => $request->category_id
             ]
@@ -103,6 +104,7 @@ class NurslingController extends Controller
         $nursling->nickname = $request->nickname;
         $nursling->address = $request->address;
         $nursling->breed = $request->breed;
+        $nursling->phone = $request->phone;
 
         $nursling->save();
 

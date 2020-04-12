@@ -6,7 +6,11 @@
 </div>
 <div class="form-group">
     <label>Адрес</label>
-    <input class="form-control" placeholder="Введите адрес" name="address" required autofocus @if(isset($nursling)) value="{{ $nursling->address }}" @endif>
+    <input class="form-control" placeholder="Введите адрес" name="address" required @if(isset($nursling)) value="{{ $nursling->address }}" @endif>
+</div>
+<div class="form-group">
+    <label>Телефон</label>
+    <input class="form-control" placeholder="Введите номер телефона" name="phone" required @if(isset($nursling)) value="{{ $nursling->phone }}" @endif>
 </div>
 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
 <hr>
@@ -32,9 +36,9 @@
 </div>
 <div class="form-group">
     <label>Порода / Окрас</label>
-    <input class="form-control" placeholder="Введите породу или окрас питомца" name="breed" required autofocus @if(isset($nursling)) value="{{ $nursling->breed }}" @endif>
+    <input class="form-control" placeholder="Введите породу или окрас питомца" name="breed" required @if(isset($nursling)) value="{{ $nursling->breed }}" @endif>
 </div>
 <div class="form-group">
     <label>Кличка</label>
-    <input class="form-control" placeholder="Введите кличку питомца" name="nickname" required autofocus @if(isset($nursling)) value="{{ $nursling->nickname }}" @endif>
+    <input class="form-control" placeholder="Введите кличку питомца" name="nickname" required @if(isset($nursling)) value="{{ $nursling->nickname }}" @endif>
 </div>

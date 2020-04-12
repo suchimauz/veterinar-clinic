@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <button class="btn btn-primary" type="submit">Отправить</button>
+                            <button class="btn btn-primary" type="submit">Искать</button>
                         </div>
                     </form>
                 </div>
@@ -48,6 +48,7 @@
                                     </div>
                                     <small class="text-muted"><b>Порода / Окрас:</b> {{ $nursling->breed }}</small>
                                     <br><small class="text-muted"><b>Хозяин:</b> {{ $nursling->owner_name }}</small>
+                                    <br><small class="text-muted"><b>Номер телефона:</b> {{ $nursling->phone }}</small>
                                     <br><small class="text-muted"><b>Адрес:</b> {{ $nursling->address }}</small>
                                 </div>
                             </a>

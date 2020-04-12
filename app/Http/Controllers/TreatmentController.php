@@ -24,6 +24,7 @@ class TreatmentController extends Controller
                             'nurslings.owner_name as nurslings_owner_name', 
                             'nurslings.breed as nurslings_breed', 
                             'nurslings.address as nurslings_address', 
+                            'nurslings.phone as nurslings_phone', 
                             'nurslings.nickname as nurslings_nickname', 
                             'categories.name as category_name', 
                             'categories.id as category_id'
@@ -38,7 +39,7 @@ class TreatmentController extends Controller
         if($request->get('search')) {
             $literals = explode(" ", $request->get('search'));
             foreach($literals as $literal) {
-                $treatments = $treatments->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.address, nurslings.nickname, categories.name, treatments.complaint)'), 'like', '%' . $literal . '%');
+                $treatments = $treatments->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.phone, nurslings.address, nurslings.nickname, categories.name, treatments.complaint)'), 'like', '%' . $literal . '%');
             }
         }
         return view('treatments.index', ['treatments' => $treatments->get(), 'categories' => Category::get()]);
