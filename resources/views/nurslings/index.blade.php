@@ -44,9 +44,11 @@
                             <a href="/nurslings/{{ $nursling->id }}/edit" class="list-group-item list-group-item-action flex-row space-between">
                                 <div>
                                     <div class="d-flex w-100 justify-content-between">
-                                        <h5 class="mb-1">{{ $nursling->category_name }}</h5>
+                                        <h5 class="mb-1"><b>{{ $nursling->nickname }}</b> - {{ $nursling->category_name }}</h5>
                                     </div>
-                                    <small class="text-muted"><b>Хозяин:</b> {{ $nursling->owner_name }}</small>
+                                    <small class="text-muted"><b>Порода / Окрас:</b> {{ $nursling->breed }}</small>
+                                    <br><small class="text-muted"><b>Хозяин:</b> {{ $nursling->owner_name }}</small>
+                                    <br><small class="text-muted"><b>Адрес:</b> {{ $nursling->address }}</small>
                                 </div>
                             </a>
                         @endforeach

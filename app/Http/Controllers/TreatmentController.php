@@ -19,7 +19,15 @@ class TreatmentController extends Controller
         $treatments = DB::table('treatments')
                         ->join('nurslings', 'nurslings.id', '=', 'treatments.nursling_id')
                         ->join('categories', 'categories.id', '=', 'nurslings.category_id')
-                        ->select('treatments.*', 'nurslings.owner_name as nurslings_owner_name', 'categories.name as category_name', 'categories.id as category_id');
+                        ->select(
+                            'treatments.*', 
+                            'nurslings.owner_name as nurslings_owner_name', 
+                            'nurslings.breed as nurslings_breed', 
+                            'nurslings.address as nurslings_address', 
+                            'nurslings.nickname as nurslings_nickname', 
+                            'categories.name as category_name', 
+                            'categories.id as category_id'
+                        );
 
         if($request->get('status')) {
             $treatments = $treatments->where('treatments.status', $request->get('status'));
@@ -30,7 +38,7 @@ class TreatmentController extends Controller
         if($request->get('search')) {
             $literals = explode(" ", $request->get('search'));
             foreach($literals as $literal) {
-                $treatments = $treatments->where(DB::raw('concat(nurslings.owner_name, categories.name, treatments.complaint)'), 'like', '%' . $literal . '%');
+                $treatments = $treatments->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.address, nurslings.nickname, categories.name, treatments.complaint)'), 'like', '%' . $literal . '%');
             }
         }
         return view('treatments.index', ['treatments' => $treatments->get(), 'categories' => Category::get()]);
@@ -45,7 +53,10 @@ class TreatmentController extends Controller
     {
         $nurslings = DB::table('nurslings')
                         ->join('categories', 'categories.id', '=', 'nurslings.category_id')
-                        ->select('nurslings.id', 'nurslings.owner_name', 'categories.name as category_name')
+                        ->select(
+                            'nurslings.*', 
+                            'categories.name as category_name'
+                        )
                         ->get();
         return view('treatments.create', ['nurslings' => $nurslings]);
     }
@@ -86,7 +97,10 @@ class TreatmentController extends Controller
         $treatment = Treatment::findOrFail($id);
         $nurslings = DB::table('nurslings')
                         ->join('categories', 'categories.id', '=', 'nurslings.category_id')
-                        ->select('nurslings.id', 'nurslings.owner_name', 'categories.name as category_name')
+                        ->select(
+                            'nurslings.*', 
+                            'categories.name as category_name'
+                        )
                         ->get();
         return view('treatments.edit', ['treatment' => $treatment, 'nurslings' => $nurslings]);
     }

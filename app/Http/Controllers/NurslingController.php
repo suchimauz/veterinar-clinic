@@ -18,14 +18,14 @@ class NurslingController extends Controller
     {
         $nurslings = DB::table('nurslings')
                         ->join('categories', 'categories.id', '=', 'nurslings.category_id')
-                        ->select('nurslings.id', 'nurslings.owner_name', 'categories.name as category_name', 'categories.id as category_id');
+                        ->select('nurslings.id', 'nurslings.breed', 'nurslings.address', 'nurslings.nickname', 'nurslings.owner_name', 'categories.name as category_name', 'categories.id as category_id');
         if($request->get('category_id')){
             $nurslings = $nurslings->where('category_id', $request->get('category_id'));
         }
         if($request->get('search')) {
             $literals = explode(" ", $request->get('search'));
             foreach($literals as $literal) {
-                $nurslings = $nurslings->where(DB::raw('concat(nurslings.owner_name, categories.name)'), 'like', '%' . $literal . '%');
+                $nurslings = $nurslings->where(DB::raw('concat(nurslings.owner_name, nurslings.breed, nurslings.address, nurslings.nickname, categories.name)'), 'like', '%' . $literal . '%');
             }
         }
         return view('nurslings.index', ['nurslings' => $nurslings->get(), 'categories' => Category::get()]);
@@ -49,9 +49,16 @@ class NurslingController extends Controller
      */
     public function store(Request $request)
     {
-        $nursling = Nursling::create(['owner_name'  => $request->owner_name,
-                                      'user_id'     => $request->user_id,
-                                      'category_id' => $request->category_id]);
+        $nursling = Nursling::create(
+            [
+                'owner_name'  => $request->owner_name,
+                'nickname'  => $request->nickname,
+                'address'  => $request->address,
+                'breed'  => $request->breed,
+                'user_id'     => $request->user_id,
+                'category_id' => $request->category_id
+            ]
+        );
         if($nursling) {
             return redirect('/nurslings');
         }
@@ -93,6 +100,9 @@ class NurslingController extends Controller
         $nursling->user_id = $request->user_id;
         $nursling->category_id = $request->category_id;
         $nursling->owner_name = $request->owner_name;
+        $nursling->nickname = $request->nickname;
+        $nursling->address = $request->address;
+        $nursling->breed = $request->breed;
 
         $nursling->save();
 

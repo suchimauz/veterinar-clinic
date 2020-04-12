@@ -60,11 +60,13 @@
                                     @else
                                         <span class="badge badge-warning">Принят на обследование</span>
                                     @endif
-                                    <h5 class="mb-1">{{ $treatment->category_name }}</h5>
+                                    <h5 class="mb-1">{{ $treatment->nurslings_nickname }} - {{ $treatment->category_name }}</h5>
                                     <small class="text-muted">{{ date('d.m.Y H:i',strtotime($treatment->created_at)) }}</small>
                                     </div>
                                     <p class="mb-1">{{ $treatment->complaint }}</p>
-                                    <small class="text-muted">{{ $treatment->nurslings_owner_name }}</small>
+                                    <small class="text-muted"><b>Порода / Окрас: </b>{{ $treatment->nurslings_breed }} </small>
+                                    <br><small class="text-muted"><b>Владелец: </b>{{ $treatment->nurslings_owner_name }} </small>
+                                    <br><small class="text-muted"><b>Адрес: </b>{{ $treatment->nurslings_address }} </small>
                                 </div>
                             </a>
                         @empty
